@@ -1,0 +1,121 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\diwul\\source\\repos\\chess\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CEB2D5DF-4DF9-4EAB-8198-0A4911E4DCFB}|chessindicator\\chessindicator.csproj|c:\\users\\diwul\\source\\repos\\chess\\chessindicator\\blueiconform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CEB2D5DF-4DF9-4EAB-8198-0A4911E4DCFB}|chessindicator\\chessindicator.csproj|solutionrelative:chessindicator\\blueiconform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CEB2D5DF-4DF9-4EAB-8198-0A4911E4DCFB}|chessindicator\\chessindicator.csproj|c:\\users\\diwul\\source\\repos\\chess\\chessindicator\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CEB2D5DF-4DF9-4EAB-8198-0A4911E4DCFB}|chessindicator\\chessindicator.csproj|solutionrelative:chessindicator\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9FF84D4A-41B7-48CF-9FDA-AC7E5583DA4D}|chess\\chess.csproj|c:\\users\\diwul\\source\\repos\\chess\\chess\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9FF84D4A-41B7-48CF-9FDA-AC7E5583DA4D}|chess\\chess.csproj|solutionrelative:chess\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CEB2D5DF-4DF9-4EAB-8198-0A4911E4DCFB}|chessindicator\\chessindicator.csproj|c:\\users\\diwul\\source\\repos\\chess\\chessindicator\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CEB2D5DF-4DF9-4EAB-8198-0A4911E4DCFB}|chessindicator\\chessindicator.csproj|solutionrelative:chessindicator\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CEB2D5DF-4DF9-4EAB-8198-0A4911E4DCFB}|chessindicator\\chessindicator.csproj|c:\\users\\diwul\\source\\repos\\chess\\chessindicator\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{CEB2D5DF-4DF9-4EAB-8198-0A4911E4DCFB}|chessindicator\\chessindicator.csproj|solutionrelative:chessindicator\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CEB2D5DF-4DF9-4EAB-8198-0A4911E4DCFB}|chessindicator\\chessindicator.csproj|c:\\users\\diwul\\source\\repos\\chess\\chessindicator\\rediconform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CEB2D5DF-4DF9-4EAB-8198-0A4911E4DCFB}|chessindicator\\chessindicator.csproj|solutionrelative:chessindicator\\rediconform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\diwul\\source\\repos\\chess\\chess\\Program.cs",
+              "RelativeDocumentMoniker": "chess\\Program.cs",
+              "ToolTip": "C:\\Users\\diwul\\source\\repos\\chess\\chess\\Program.cs",
+              "RelativeToolTip": "chess\\Program.cs",
+              "ViewState": "AgIAAI0AAAAAAAAAAAAhwJsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-01T06:13:54.994Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\diwul\\source\\repos\\chess\\chessindicator\\Form1.cs",
+              "RelativeDocumentMoniker": "chessindicator\\Form1.cs",
+              "ToolTip": "C:\\Users\\diwul\\source\\repos\\chess\\chessindicator\\Form1.cs",
+              "RelativeToolTip": "chessindicator\\Form1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-01T06:02:28.309Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\diwul\\source\\repos\\chess\\chessindicator\\Program.cs",
+              "RelativeDocumentMoniker": "chessindicator\\Program.cs",
+              "ToolTip": "C:\\Users\\diwul\\source\\repos\\chess\\chessindicator\\Program.cs",
+              "RelativeToolTip": "chessindicator\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-01T05:44:45.294Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BlueIconForm.cs",
+              "DocumentMoniker": "C:\\Users\\diwul\\source\\repos\\chess\\chessindicator\\BlueIconForm.cs",
+              "RelativeDocumentMoniker": "chessindicator\\BlueIconForm.cs",
+              "ToolTip": "C:\\Users\\diwul\\source\\repos\\chess\\chessindicator\\BlueIconForm.cs",
+              "RelativeToolTip": "chessindicator\\BlueIconForm.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-01T04:44:06.477Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RedIconForm.cs",
+              "DocumentMoniker": "C:\\Users\\diwul\\source\\repos\\chess\\chessindicator\\RedIconForm.cs",
+              "RelativeDocumentMoniker": "chessindicator\\RedIconForm.cs",
+              "ToolTip": "C:\\Users\\diwul\\source\\repos\\chess\\chessindicator\\RedIconForm.cs",
+              "RelativeToolTip": "chessindicator\\RedIconForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAwAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-01T04:41:53.965Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\diwul\\source\\repos\\chess\\chessindicator\\Form1.cs",
+              "RelativeDocumentMoniker": "chessindicator\\Form1.cs",
+              "ToolTip": "C:\\Users\\diwul\\source\\repos\\chess\\chessindicator\\Form1.cs [Design]",
+              "RelativeToolTip": "chessindicator\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-01T04:38:45.824Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
