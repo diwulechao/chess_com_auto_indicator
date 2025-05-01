@@ -75,3 +75,6 @@ The main UI includes two groups of radio buttons:
     public static int starting_position_x = 224;
     public static int starting_position_y = 152;
     public static int chess_board_height_w = 808;
+
+## 🔧 Example
+![Screenshot of ChessIndicator in action](./chess_indicator_example.png)
