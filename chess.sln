@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chess", "chess\chess.csproj", "{9FF84D4A-41B7-48CF-9FDA-AC7E5583DA4D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chessindicator", "chessindicator\chessindicator.csproj", "{CEB2D5DF-4DF9-4EAB-8198-0A4911E4DCFB}"
 EndProject
 Global
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9FF84D4A-41B7-48CF-9FDA-AC7E5583DA4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9FF84D4A-41B7-48CF-9FDA-AC7E5583DA4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9FF84D4A-41B7-48CF-9FDA-AC7E5583DA4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9FF84D4A-41B7-48CF-9FDA-AC7E5583DA4D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CEB2D5DF-4DF9-4EAB-8198-0A4911E4DCFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CEB2D5DF-4DF9-4EAB-8198-0A4911E4DCFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEB2D5DF-4DF9-4EAB-8198-0A4911E4DCFB}.Release|Any CPU.ActiveCfg = Release|Any CPU

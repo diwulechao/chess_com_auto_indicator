@@ -7,6 +7,8 @@ namespace chessindicator
             this.TopMost = true;
             this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
             InitializeComponent();
+
+            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panelEvalBar_Paint);
         }
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -27,6 +29,7 @@ namespace chessindicator
             if (radioButton1.Checked)
             {
                 Program.chess_color = 'w';
+                textBox1.Text = "switched to white\n";
             }
         }
 
@@ -35,6 +38,7 @@ namespace chessindicator
             if (radioButton2.Checked)
             {
                 Program.chess_color = 'b';
+                textBox1.Text = "switched to black\n";
             }
         }
 
@@ -92,6 +96,44 @@ namespace chessindicator
             {
                 Program.chess_speed = "4";
             }
+        }
+
+        public void AppendToConsole(string message)
+        {
+            if (textBox1.InvokeRequired)
+            {
+                textBox1.Invoke(new Action(() => AppendToConsole(message)));
+                return;
+            }
+
+            textBox1.AppendText(message + Environment.NewLine);
+            textBox1.SelectionStart = textBox1.Text.Length;
+            textBox1.ScrollToCaret();
+        }
+
+        public double evalBarValue = 0.5; // 0.0 = all Black, 1.0 = all White
+
+        private void panelEvalBar_Paint(object sender, PaintEventArgs e)
+        {
+            var g = e.Graphics;
+            int height = panel3.Height;
+            int width = panel3.Width;
+
+            // Calculate white portion (on bottom)
+            int whiteHeight = (int)(height * evalBarValue);
+            int blackHeight = height - whiteHeight;
+
+            if (Program.chess_color == 'w')
+            {
+                g.FillRectangle(Brushes.Black, 0, 0, width, blackHeight);
+                g.FillRectangle(Brushes.White, 0, blackHeight, width, whiteHeight);
+            }
+            else
+            {
+                g.FillRectangle(Brushes.White, 0, 0, width, blackHeight);
+                g.FillRectangle(Brushes.Black, 0, blackHeight, width, whiteHeight);
+            }
+            
         }
     }
 }

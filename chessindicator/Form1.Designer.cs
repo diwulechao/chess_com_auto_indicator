@@ -39,6 +39,12 @@
             radioButton5 = new RadioButton();
             radioButton4 = new RadioButton();
             radioButton3 = new RadioButton();
+            textBox1 = new TextBox();
+            panel3 = new Panel();
+            textBox2 = new TextBox();
+            panel4 = new Panel();
+            label1 = new Label();
+            label2 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
@@ -78,6 +84,8 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(label2);
+            panel2.Controls.Add(label1);
             panel2.Controls.Add(radioButton9);
             panel2.Controls.Add(radioButton8);
             panel2.Controls.Add(radioButton7);
@@ -169,11 +177,67 @@
             radioButton3.UseVisualStyleBackColor = true;
             radioButton3.CheckedChanged += radioButton3_CheckedChanged;
             // 
+            // textBox1
+            // 
+            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            textBox1.Location = new Point(4, 212);
+            textBox1.Multiline = true;
+            textBox1.Name = "textBox1";
+            textBox1.ReadOnly = true;
+            textBox1.ScrollBars = ScrollBars.Vertical;
+            textBox1.Size = new Size(317, 510);
+            textBox1.TabIndex = 2;
+            // 
+            // panel3
+            // 
+            panel3.Location = new Point(234, 1);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(18, 205);
+            panel3.TabIndex = 3;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(264, 81);
+            textBox2.Name = "textBox2";
+            textBox2.ReadOnly = true;
+            textBox2.Size = new Size(57, 23);
+            textBox2.TabIndex = 4;
+            // 
+            // panel4
+            // 
+            panel4.BackColor = SystemColors.ActiveCaption;
+            panel4.Location = new Point(234, 101);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(20, 3);
+            panel4.TabIndex = 5;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(10, 106);
+            label1.Name = "label1";
+            label1.Size = new Size(71, 15);
+            label1.TabIndex = 7;
+            label1.Text = "smart mode";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(93, 95);
+            label2.Name = "label2";
+            label2.Size = new Size(74, 15);
+            label2.TabIndex = 8;
+            label2.Text = "stupid mode";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(236, 235);
+            ClientSize = new Size(333, 734);
+            Controls.Add(panel4);
+            Controls.Add(textBox2);
+            Controls.Add(panel3);
+            Controls.Add(textBox1);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "Form1";
@@ -184,6 +248,7 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -199,5 +264,11 @@
         private RadioButton radioButton8;
         private RadioButton radioButton7;
         private RadioButton radioButton9;
+        private TextBox textBox1;
+        public Panel panel3;
+        public TextBox textBox2;
+        private Panel panel4;
+        private Label label2;
+        private Label label1;
     }
 }

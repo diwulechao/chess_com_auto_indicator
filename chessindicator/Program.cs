@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using chessindicator;
 
@@ -19,6 +20,8 @@ static class Program
     public static char chess_color = 'w';
     public static string chess_speed = "100";
 
+    public static Form1 f1;
+
     [STAThread]
     static void Main()
     {
@@ -36,7 +39,7 @@ static class Program
         backgroundThread.IsBackground = true;
         backgroundThread.Start();
 
-        var f1 = new Form1();
+        f1 = new Form1();
         f1.Show();
         Application.Run();
     }
@@ -96,6 +99,31 @@ static class Program
     static string lastresult = "";
     static string ans = "";
 
+    static int? ExtractCentipawnScore(string info)
+    {
+        var match = Regex.Match(info, @"score cp (-?\d+)");
+        if (match.Success && int.TryParse(match.Groups[1].Value, out int cp))
+        {
+            return cp;
+        }
+        return null;
+    }
+
+    static int? ExtractCentipawnScore2(string info)
+    {
+        var match = Regex.Match(info, @"score mate (-?\d+)");
+        if (match.Success && int.TryParse(match.Groups[1].Value, out int cp))
+        {
+            return cp;
+        }
+        return null;
+    }
+
+    static double CpToBar(double cp)
+    {
+        return 1.0 / (1.0 + Math.Exp(-0.004 * cp));
+    }
+
     static string GetBestMove(string fen)
     {
         // Create a process to run Stockfish
@@ -121,6 +149,41 @@ static class Program
         while (!stockfishProcess.StandardOutput.EndOfStream)
         {
             string line = stockfishProcess.StandardOutput.ReadLine();
+            f1.AppendToConsole(line + "\n");
+
+            if (line.IndexOf("score cp") >= 0)
+            {
+                int? cp = ExtractCentipawnScore(line);
+                if (cp.HasValue)
+                {
+                    f1.evalBarValue = CpToBar(cp.Value);
+                    f1.panel3.Invalidate();
+                    f1.Invoke(new Action(() =>
+                    {
+                        f1.textBox2.Text = cp.Value.ToString();
+                    }));
+                }
+                else
+                {
+                    Console.WriteLine("No cp score found.");
+                }
+            }
+            else if (line.IndexOf("score mate") >= 0)
+            {
+                int? cp = ExtractCentipawnScore2(line);
+                if (cp.HasValue)
+                {
+                    f1.Invoke(new Action(() =>
+                    {
+                        f1.textBox2.Text = "mate " + cp.Value.ToString();
+                    }));
+                }
+                else
+                {
+                    Console.WriteLine("No cp score found.");
+                }
+            }
+
             if (line.StartsWith("bestmove"))
             {
                 bestMove = line.Split(' ')[1]; // Extract the move from the line
