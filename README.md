@@ -12,6 +12,7 @@
 - Supports different sides (White/Black).
 - Adjustable calculation depth/speed.
 - Option to reduce strength and increase detection resistance (3, 4, or 5-move mode).
+- Chess evaluation bar support!
 
 ---
 
