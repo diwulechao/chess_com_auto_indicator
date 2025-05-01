@@ -59,7 +59,6 @@
             radioButton2.Name = "radioButton2";
             radioButton2.Size = new Size(53, 19);
             radioButton2.TabIndex = 1;
-            radioButton2.TabStop = true;
             radioButton2.Text = "Black";
             radioButton2.UseVisualStyleBackColor = true;
             radioButton2.CheckedChanged += radioButton2_CheckedChanged;
@@ -67,6 +66,7 @@
             // radioButton1
             // 
             radioButton1.AutoSize = true;
+            radioButton1.Checked = true;
             radioButton1.Location = new Point(25, 17);
             radioButton1.Name = "radioButton1";
             radioButton1.Size = new Size(56, 19);
@@ -97,7 +97,6 @@
             radioButton9.Name = "radioButton9";
             radioButton9.Size = new Size(69, 19);
             radioButton9.TabIndex = 6;
-            radioButton9.TabStop = true;
             radioButton9.Text = "2 moves";
             radioButton9.UseVisualStyleBackColor = true;
             radioButton9.CheckedChanged += radioButton9_CheckedChanged;
@@ -109,7 +108,6 @@
             radioButton8.Name = "radioButton8";
             radioButton8.Size = new Size(69, 19);
             radioButton8.TabIndex = 5;
-            radioButton8.TabStop = true;
             radioButton8.Text = "3 moves";
             radioButton8.UseVisualStyleBackColor = true;
             radioButton8.CheckedChanged += radioButton8_CheckedChanged;
@@ -121,7 +119,6 @@
             radioButton7.Name = "radioButton7";
             radioButton7.Size = new Size(69, 19);
             radioButton7.TabIndex = 4;
-            radioButton7.TabStop = true;
             radioButton7.Text = "4 moves";
             radioButton7.UseVisualStyleBackColor = true;
             radioButton7.CheckedChanged += radioButton7_CheckedChanged;
@@ -129,6 +126,7 @@
             // radioButton6
             // 
             radioButton6.AutoSize = true;
+            radioButton6.Checked = true;
             radioButton6.Location = new Point(24, 9);
             radioButton6.Name = "radioButton6";
             radioButton6.Size = new Size(43, 19);
@@ -145,7 +143,6 @@
             radioButton5.Name = "radioButton5";
             radioButton5.Size = new Size(49, 19);
             radioButton5.TabIndex = 2;
-            radioButton5.TabStop = true;
             radioButton5.Text = "2000";
             radioButton5.UseVisualStyleBackColor = true;
             radioButton5.CheckedChanged += radioButton5_CheckedChanged;
@@ -157,7 +154,6 @@
             radioButton4.Name = "radioButton4";
             radioButton4.Size = new Size(49, 19);
             radioButton4.TabIndex = 1;
-            radioButton4.TabStop = true;
             radioButton4.Text = "1000";
             radioButton4.UseVisualStyleBackColor = true;
             radioButton4.CheckedChanged += radioButton4_CheckedChanged;
@@ -169,7 +165,6 @@
             radioButton3.Name = "radioButton3";
             radioButton3.Size = new Size(43, 19);
             radioButton3.TabIndex = 0;
-            radioButton3.TabStop = true;
             radioButton3.Text = "500";
             radioButton3.UseVisualStyleBackColor = true;
             radioButton3.CheckedChanged += radioButton3_CheckedChanged;
@@ -182,7 +177,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "Form1";
-            Text = "Form1";
+            Text = "auto indicator";
             Load += Form1_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

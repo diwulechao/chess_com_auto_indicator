@@ -9,6 +9,13 @@ static class Program
     static RedIconForm redIcon;
     static BlueIconForm blueIcon;
 
+    // Path to the Stockfish executable
+    public static string stockfishPath = @"C:\stockfish\stockfish-windows-x86-64-avx2.exe";
+
+    public static int starting_position_x = 224;
+    public static int starting_position_y = 152;
+    public static int chess_board_height_w = 808;
+
     public static char chess_color = 'w';
     public static string chess_speed = "100";
 
@@ -18,12 +25,11 @@ static class Program
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
 
-        // Red icon at (100, 100)
-        redIcon = new RedIconForm(new Point(201, 152));
+        redIcon = new RedIconForm(new Point(starting_position_x, starting_position_y));
         redIcon.Show();
 
         // Blue icon at (200, 100)
-        blueIcon = new BlueIconForm(new Point(200, 100));
+        blueIcon = new BlueIconForm(new Point(starting_position_x, starting_position_y));
         blueIcon.Show();
 
         Thread backgroundThread = new Thread(MoveIconsLoop);
@@ -63,24 +69,24 @@ static class Program
                 {
                     redIcon?.Invoke(new Action(() =>
                     {
-                        redIcon.Location = new Point((result[0] - 'a') * 101 + 201 + 5, ((result[1] - '1')) * 101 + 152 + 5);
+                        redIcon.Location = new Point((result[0] - 'a') * chess_board_height_w / 8 + starting_position_x + 5, ((result[1] - '1')) * chess_board_height_w / 8 + starting_position_y + 5);
                     }));
 
                     blueIcon?.Invoke(new Action(() =>
                     {
-                        blueIcon.Location = new Point((result[2] - 'a') * 101 + 201 + 5, ((result[3] - '1')) * 101 + 152 + 5);
+                        blueIcon.Location = new Point((result[2] - 'a') * chess_board_height_w / 8 + starting_position_x + 5, ((result[3] - '1')) * chess_board_height_w / 8 + starting_position_y + 5);
                     }));
                 }
                 else
                 {
                     redIcon?.Invoke(new Action(() =>
                     {
-                        redIcon.Location = new Point((result[0] - 'a') * 101 + 201 + 5, (7 - (result[1] - '1')) * 101 + 152 + 5);
+                        redIcon.Location = new Point((result[0] - 'a') * chess_board_height_w / 8 + starting_position_x + 5, (7 - (result[1] - '1')) * chess_board_height_w / 8 + starting_position_y + 5);
                     }));
 
                     blueIcon?.Invoke(new Action(() =>
                     {
-                        blueIcon.Location = new Point((result[2] - 'a') * 101 + 201 + 5, (7 - (result[3] - '1')) * 101 + 152 + 5);
+                        blueIcon.Location = new Point((result[2] - 'a') * 101 + starting_position_x + 5, (7 - (result[3] - '1')) * chess_board_height_w / 8 + starting_position_y + 5);
                     }));
                 }
             }
@@ -92,9 +98,6 @@ static class Program
 
     static string GetBestMove(string fen)
     {
-        // Path to the Stockfish executable
-        string stockfishPath = @"C:\stockfish\stockfish-windows-x86-64-avx2.exe";
-
         // Create a process to run Stockfish
         Process stockfishProcess = new Process();
         stockfishProcess.StartInfo.FileName = stockfishPath;
@@ -133,8 +136,8 @@ static class Program
     static string capture_and_advise()
     {
         // Set the coordinates of the top-left and bottom-right corners
-        int startX = 201, startY = 152;
-        int endX = 1009, endY = 960;
+        int startX = starting_position_x, startY = starting_position_y;
+        int endX = starting_position_x + chess_board_height_w, endY = starting_position_y + chess_board_height_w;
 
         // Calculate the width and height of the area to capture
         int width = endX - startX;
@@ -157,13 +160,11 @@ static class Program
             // screenshot.Save(@"D:\screenshot.png", System.Drawing.Imaging.ImageFormat.Png);
             // Console.WriteLine("Full screenshot saved as D:\\screenshot.png.");
 
-            // Set the grid size to 101x101
-            int gridSize = 101;
+            int gridSize = chess_board_height_w / 8;
             for (int row = 0; row < height / gridSize; row++)
             {
                 for (int col = 0; col < width / gridSize; col++)
                 {
-                    // Calculate the bounds of the current 101x101 grid section
                     int x = col * gridSize;
                     int y = row * gridSize;
                     int gridWidth = gridSize;
@@ -173,7 +174,6 @@ static class Program
                     if (x + gridWidth > width) gridWidth = width - x;
                     if (y + gridHeight > height) gridHeight = height - y;
 
-                    // Create a new bitmap for the current 101x101 square
                     using (Bitmap gridSection = screenshot.Clone(new Rectangle(x, y, gridWidth, gridHeight), screenshot.PixelFormat))
                     {
                         // Count the number of pixels that have RGB values in the range [240, 260]

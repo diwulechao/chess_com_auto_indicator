@@ -15,3 +15,4 @@ C:\Users\diwul\source\repos\chess\chessindicator\obj\Debug\net8.0-windows\chessi
 C:\Users\diwul\source\repos\chess\chessindicator\obj\Debug\net8.0-windows\chessindicator.genruntimeconfig.cache
 C:\Users\diwul\source\repos\chess\chessindicator\obj\Debug\net8.0-windows\ref\chessindicator.dll
 C:\Users\diwul\source\repos\chess\chessindicator\obj\Debug\net8.0-windows\RedIconForm.resources
+C:\Users\diwul\source\repos\chess\chessindicator\obj\Debug\net8.0-windows\chessindicator.sourcelink.json

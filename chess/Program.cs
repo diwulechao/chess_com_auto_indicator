@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 
+// program used for debug only use form instead
 class Program
 {
     static string lastresult = "";
