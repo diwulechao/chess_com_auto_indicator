@@ -209,8 +209,8 @@ static class Program
                         // auto move
                         redIcon?.Invoke(new Action(() =>
                         {
-                            var redLocation = new Point((result[0] - 'a') * chess_board_height_w / 8 + starting_position_x + 15, ((result[1] - '1')) * chess_board_height_w / 8 + starting_position_y + 15);
-                            var blueLocation = new Point((result[2] - 'a') * chess_board_height_w / 8 + starting_position_x + 15, ((result[3] - '1')) * chess_board_height_w / 8 + starting_position_y + 15);
+                            var redLocation = new Point((result[0] - 'a') * chess_board_height_w / 8 + starting_position_x + 10, ((result[1] - '1')) * chess_board_height_w / 8 + starting_position_y + 10);
+                            var blueLocation = new Point((result[2] - 'a') * chess_board_height_w / 8 + starting_position_x + 10, ((result[3] - '1')) * chess_board_height_w / 8 + starting_position_y + 10);
 
                             ClickAt(redLocation);
                             Thread.Sleep(50); // optional delay
@@ -237,8 +237,8 @@ static class Program
                         // auto move
                         redIcon?.Invoke(new Action(() =>
                         {
-                            var redLocation = new Point((result[0] - 'a') * chess_board_height_w / 8 + starting_position_x + 15, (7 - (result[1] - '1')) * chess_board_height_w / 8 + starting_position_y + 15);
-                            var blueLocation = new Point((result[2] - 'a') * 101 + starting_position_x + 15, (7 - (result[3] - '1')) * chess_board_height_w / 8 + starting_position_y + 15);
+                            var redLocation = new Point((result[0] - 'a') * chess_board_height_w / 8 + starting_position_x + 10, (7 - (result[1] - '1')) * chess_board_height_w / 8 + starting_position_y + 10);
+                            var blueLocation = new Point((result[2] - 'a') * 101 + starting_position_x + 10, (7 - (result[3] - '1')) * chess_board_height_w / 8 + starting_position_y + 10);
 
                             ClickAt(redLocation);
                             Thread.Sleep(50); // optional delay

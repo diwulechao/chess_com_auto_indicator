@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("chessindicator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+da8ebeee411e97ce30c390de488a68fbde7d0b3d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fe55af855417345a38a1df8891d7718fdca07eb8")]
 [assembly: System.Reflection.AssemblyProductAttribute("chessindicator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("chessindicator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
