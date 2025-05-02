@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\repos\\chess_com_auto_indicator\\chessindicator\\chessindicator.csproj": {}
+    "C:\\Users\\diwul\\source\\repos\\chess\\chessindicator\\chessindicator.csproj": {}
   },
   "projects": {
-    "C:\\repos\\chess_com_auto_indicator\\chessindicator\\chessindicator.csproj": {
+    "C:\\Users\\diwul\\source\\repos\\chess\\chessindicator\\chessindicator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\repos\\chess_com_auto_indicator\\chessindicator\\chessindicator.csproj",
+        "projectUniqueName": "C:\\Users\\diwul\\source\\repos\\chess\\chessindicator\\chessindicator.csproj",
         "projectName": "chessindicator",
-        "projectPath": "C:\\repos\\chess_com_auto_indicator\\chessindicator\\chessindicator.csproj",
-        "packagesPath": "C:\\Users\\lediwu\\.nuget\\packages\\",
-        "outputPath": "C:\\repos\\chess_com_auto_indicator\\chessindicator\\obj\\",
+        "projectPath": "C:\\Users\\diwul\\source\\repos\\chess\\chessindicator\\chessindicator.csproj",
+        "packagesPath": "C:\\Users\\diwul\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\diwul\\source\\repos\\chess\\chessindicator\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\lediwu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\diwul\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -44,7 +40,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0-windows7.0": {
@@ -68,7 +64,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

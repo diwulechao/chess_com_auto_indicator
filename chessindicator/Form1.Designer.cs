@@ -32,6 +32,11 @@
             radioButton2 = new RadioButton();
             radioButton1 = new RadioButton();
             panel2 = new Panel();
+            radioButton12 = new RadioButton();
+            radioButton11 = new RadioButton();
+            radioButton10 = new RadioButton();
+            label2 = new Label();
+            label1 = new Label();
             radioButton9 = new RadioButton();
             radioButton8 = new RadioButton();
             radioButton7 = new RadioButton();
@@ -43,8 +48,6 @@
             panel3 = new Panel();
             textBox2 = new TextBox();
             panel4 = new Panel();
-            label1 = new Label();
-            label2 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
@@ -55,13 +58,13 @@
             panel1.Controls.Add(radioButton1);
             panel1.Location = new Point(1, 1);
             panel1.Name = "panel1";
-            panel1.Size = new Size(200, 74);
+            panel1.Size = new Size(200, 44);
             panel1.TabIndex = 0;
             // 
             // radioButton2
             // 
             radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(24, 42);
+            radioButton2.Location = new Point(87, 17);
             radioButton2.Name = "radioButton2";
             radioButton2.Size = new Size(53, 19);
             radioButton2.TabIndex = 1;
@@ -84,6 +87,9 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(radioButton12);
+            panel2.Controls.Add(radioButton11);
+            panel2.Controls.Add(radioButton10);
             panel2.Controls.Add(label2);
             panel2.Controls.Add(label1);
             panel2.Controls.Add(radioButton9);
@@ -93,15 +99,66 @@
             panel2.Controls.Add(radioButton5);
             panel2.Controls.Add(radioButton4);
             panel2.Controls.Add(radioButton3);
-            panel2.Location = new Point(1, 81);
+            panel2.Location = new Point(1, 51);
             panel2.Name = "panel2";
-            panel2.Size = new Size(200, 126);
+            panel2.Size = new Size(200, 156);
             panel2.TabIndex = 1;
+            // 
+            // radioButton12
+            // 
+            radioButton12.AutoSize = true;
+            radioButton12.Location = new Point(25, 109);
+            radioButton12.Name = "radioButton12";
+            radioButton12.Size = new Size(49, 19);
+            radioButton12.TabIndex = 11;
+            radioButton12.Text = "5000";
+            radioButton12.UseVisualStyleBackColor = true;
+            radioButton12.CheckedChanged += radioButton12_CheckedChanged;
+            // 
+            // radioButton11
+            // 
+            radioButton11.AutoSize = true;
+            radioButton11.Location = new Point(87, 109);
+            radioButton11.Name = "radioButton11";
+            radioButton11.Size = new Size(69, 19);
+            radioButton11.TabIndex = 10;
+            radioButton11.Text = "6 moves";
+            radioButton11.UseVisualStyleBackColor = true;
+            radioButton11.CheckedChanged += radioButton11_CheckedChanged;
+            // 
+            // radioButton10
+            // 
+            radioButton10.AutoSize = true;
+            radioButton10.Location = new Point(87, 84);
+            radioButton10.Name = "radioButton10";
+            radioButton10.Size = new Size(69, 19);
+            radioButton10.TabIndex = 9;
+            radioButton10.Text = "5 moves";
+            radioButton10.UseVisualStyleBackColor = true;
+            radioButton10.CheckedChanged += radioButton10_CheckedChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(87, 131);
+            label2.Name = "label2";
+            label2.Size = new Size(74, 15);
+            label2.TabIndex = 8;
+            label2.Text = "stupid mode";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(10, 131);
+            label1.Name = "label1";
+            label1.Size = new Size(71, 15);
+            label1.TabIndex = 7;
+            label1.Text = "smart mode";
             // 
             // radioButton9
             // 
             radioButton9.AutoSize = true;
-            radioButton9.Location = new Point(93, 23);
+            radioButton9.Location = new Point(87, 9);
             radioButton9.Name = "radioButton9";
             radioButton9.Size = new Size(69, 19);
             radioButton9.TabIndex = 6;
@@ -112,7 +169,7 @@
             // radioButton8
             // 
             radioButton8.AutoSize = true;
-            radioButton8.Location = new Point(93, 48);
+            radioButton8.Location = new Point(87, 34);
             radioButton8.Name = "radioButton8";
             radioButton8.Size = new Size(69, 19);
             radioButton8.TabIndex = 5;
@@ -123,7 +180,7 @@
             // radioButton7
             // 
             radioButton7.AutoSize = true;
-            radioButton7.Location = new Point(93, 73);
+            radioButton7.Location = new Point(87, 59);
             radioButton7.Name = "radioButton7";
             radioButton7.Size = new Size(69, 19);
             radioButton7.TabIndex = 4;
@@ -135,7 +192,7 @@
             // 
             radioButton6.AutoSize = true;
             radioButton6.Checked = true;
-            radioButton6.Location = new Point(24, 9);
+            radioButton6.Location = new Point(25, 9);
             radioButton6.Name = "radioButton6";
             radioButton6.Size = new Size(43, 19);
             radioButton6.TabIndex = 3;
@@ -147,7 +204,7 @@
             // radioButton5
             // 
             radioButton5.AutoSize = true;
-            radioButton5.Location = new Point(24, 84);
+            radioButton5.Location = new Point(25, 84);
             radioButton5.Name = "radioButton5";
             radioButton5.Size = new Size(49, 19);
             radioButton5.TabIndex = 2;
@@ -158,7 +215,7 @@
             // radioButton4
             // 
             radioButton4.AutoSize = true;
-            radioButton4.Location = new Point(24, 59);
+            radioButton4.Location = new Point(25, 59);
             radioButton4.Name = "radioButton4";
             radioButton4.Size = new Size(49, 19);
             radioButton4.TabIndex = 1;
@@ -169,7 +226,7 @@
             // radioButton3
             // 
             radioButton3.AutoSize = true;
-            radioButton3.Location = new Point(24, 34);
+            radioButton3.Location = new Point(25, 34);
             radioButton3.Name = "radioButton3";
             radioButton3.Size = new Size(43, 19);
             radioButton3.TabIndex = 0;
@@ -210,24 +267,6 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(20, 3);
             panel4.TabIndex = 5;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(10, 106);
-            label1.Name = "label1";
-            label1.Size = new Size(71, 15);
-            label1.TabIndex = 7;
-            label1.Text = "smart mode";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(93, 95);
-            label2.Name = "label2";
-            label2.Size = new Size(74, 15);
-            label2.TabIndex = 8;
-            label2.Text = "stupid mode";
             // 
             // Form1
             // 
@@ -270,5 +309,8 @@
         private Panel panel4;
         private Label label2;
         private Label label1;
+        private RadioButton radioButton12;
+        private RadioButton radioButton11;
+        private RadioButton radioButton10;
     }
 }

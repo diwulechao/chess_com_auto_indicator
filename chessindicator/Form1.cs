@@ -133,7 +133,31 @@ namespace chessindicator
                 g.FillRectangle(Brushes.White, 0, 0, width, blackHeight);
                 g.FillRectangle(Brushes.Black, 0, blackHeight, width, whiteHeight);
             }
-            
+
+        }
+
+        private void radioButton10_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton10.Checked)
+            {
+                Program.chess_speed = "5";
+            }
+        }
+
+        private void radioButton11_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton11.Checked)
+            {
+                Program.chess_speed = "6";
+            }
+        }
+
+        private void radioButton12_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton12.Checked)
+            {
+                Program.chess_speed = "5000";
+            }
         }
     }
 }
