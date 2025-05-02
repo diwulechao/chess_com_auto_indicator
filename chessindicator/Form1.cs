@@ -1,3 +1,5 @@
+using System.Drawing;
+
 namespace chessindicator
 {
     public partial class Form1 : Form
@@ -157,6 +159,29 @@ namespace chessindicator
             if (radioButton12.Checked)
             {
                 Program.chess_speed = "5000";
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.redIcon.Visible = Program.blueIcon.Visible = checkBox1.Checked;
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox3.Checked)
+            {
+                checkBox2.Checked = true;
+                checkBox4.Checked = false;
+            }
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox4.Checked)
+            {
+                checkBox3.Checked = false;
+                Program.ans = "";
             }
         }
     }

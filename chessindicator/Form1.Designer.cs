@@ -48,6 +48,11 @@
             panel3 = new Panel();
             textBox2 = new TextBox();
             panel4 = new Panel();
+            checkBox1 = new CheckBox();
+            checkBox2 = new CheckBox();
+            checkBox3 = new CheckBox();
+            textBox3 = new TextBox();
+            checkBox4 = new CheckBox();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
@@ -56,15 +61,15 @@
             // 
             panel1.Controls.Add(radioButton2);
             panel1.Controls.Add(radioButton1);
-            panel1.Location = new Point(1, 1);
+            panel1.Location = new Point(31, 5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(200, 44);
+            panel1.Size = new Size(168, 33);
             panel1.TabIndex = 0;
             // 
             // radioButton2
             // 
             radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(87, 17);
+            radioButton2.Location = new Point(87, 3);
             radioButton2.Name = "radioButton2";
             radioButton2.Size = new Size(53, 19);
             radioButton2.TabIndex = 1;
@@ -76,7 +81,7 @@
             // 
             radioButton1.AutoSize = true;
             radioButton1.Checked = true;
-            radioButton1.Location = new Point(25, 17);
+            radioButton1.Location = new Point(25, 3);
             radioButton1.Name = "radioButton1";
             radioButton1.Size = new Size(56, 19);
             radioButton1.TabIndex = 0;
@@ -99,9 +104,9 @@
             panel2.Controls.Add(radioButton5);
             panel2.Controls.Add(radioButton4);
             panel2.Controls.Add(radioButton3);
-            panel2.Location = new Point(1, 51);
+            panel2.Location = new Point(31, 44);
             panel2.Name = "panel2";
-            panel2.Size = new Size(200, 156);
+            panel2.Size = new Size(168, 156);
             panel2.TabIndex = 1;
             // 
             // radioButton12
@@ -237,24 +242,24 @@
             // textBox1
             // 
             textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            textBox1.Location = new Point(4, 212);
+            textBox1.Location = new Point(4, 235);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
             textBox1.ReadOnly = true;
             textBox1.ScrollBars = ScrollBars.Vertical;
-            textBox1.Size = new Size(317, 510);
+            textBox1.Size = new Size(317, 487);
             textBox1.TabIndex = 2;
             // 
             // panel3
             // 
-            panel3.Location = new Point(234, 1);
+            panel3.Location = new Point(4, 1);
             panel3.Name = "panel3";
             panel3.Size = new Size(18, 205);
             panel3.TabIndex = 3;
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(264, 81);
+            textBox2.Location = new Point(4, 206);
             textBox2.Name = "textBox2";
             textBox2.ReadOnly = true;
             textBox2.Size = new Size(57, 23);
@@ -263,16 +268,74 @@
             // panel4
             // 
             panel4.BackColor = SystemColors.ActiveCaption;
-            panel4.Location = new Point(234, 101);
+            panel4.Location = new Point(4, 101);
             panel4.Name = "panel4";
             panel4.Size = new Size(20, 3);
             panel4.TabIndex = 5;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Checked = true;
+            checkBox1.CheckState = CheckState.Checked;
+            checkBox1.Location = new Point(205, 5);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(66, 19);
+            checkBox1.TabIndex = 6;
+            checkBox1.Text = "Overlay";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Location = new Point(204, 28);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(123, 19);
+            checkBox2.TabIndex = 7;
+            checkBox2.Text = "ur move detection";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            checkBox3.AutoSize = true;
+            checkBox3.Location = new Point(204, 54);
+            checkBox3.Name = "checkBox3";
+            checkBox3.Size = new Size(124, 19);
+            checkBox3.TabIndex = 8;
+            checkBox3.Text = "auto play vs player";
+            checkBox3.UseVisualStyleBackColor = true;
+            checkBox3.CheckedChanged += checkBox3_CheckedChanged;
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(67, 206);
+            textBox3.Name = "textBox3";
+            textBox3.ReadOnly = true;
+            textBox3.Size = new Size(54, 23);
+            textBox3.TabIndex = 9;
+            // 
+            // checkBox4
+            // 
+            checkBox4.AutoSize = true;
+            checkBox4.Location = new Point(204, 78);
+            checkBox4.Name = "checkBox4";
+            checkBox4.Size = new Size(110, 19);
+            checkBox4.TabIndex = 10;
+            checkBox4.Text = "auto play vs bot";
+            checkBox4.UseVisualStyleBackColor = true;
+            checkBox4.CheckedChanged += checkBox4_CheckedChanged;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(333, 734);
+            Controls.Add(checkBox4);
+            Controls.Add(textBox3);
+            Controls.Add(checkBox3);
+            Controls.Add(checkBox2);
+            Controls.Add(checkBox1);
             Controls.Add(panel4);
             Controls.Add(textBox2);
             Controls.Add(panel3);
@@ -312,5 +375,10 @@
         private RadioButton radioButton12;
         private RadioButton radioButton11;
         private RadioButton radioButton10;
+        public CheckBox checkBox1;
+        public CheckBox checkBox2;
+        public CheckBox checkBox3;
+        public TextBox textBox3;
+        public CheckBox checkBox4;
     }
 }

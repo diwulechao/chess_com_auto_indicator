@@ -1,14 +1,22 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using chessindicator;
+using static System.Windows.Forms.AxHost;
 
 static class Program
 {
-    static RedIconForm redIcon;
-    static BlueIconForm blueIcon;
+    [DllImport("user32.dll")]
+    static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, UIntPtr dwExtraInfo);
+
+    const uint MOUSEEVENTF_LEFTDOWN = 0x0002;
+    const uint MOUSEEVENTF_LEFTUP = 0x0004;
+
+    public static RedIconForm redIcon;
+    public static BlueIconForm blueIcon;
 
     // Path to the Stockfish executable
     public static string stockfishPath = @"C:\stockfish\stockfish-windows-x86-64-avx2.exe";
@@ -21,6 +29,8 @@ static class Program
     public static string chess_speed = "100";
 
     public static Form1 f1;
+
+    public static bool my_move = false;
 
     [STAThread]
     static void Main()
@@ -39,29 +49,138 @@ static class Program
         backgroundThread.IsBackground = true;
         backgroundThread.Start();
 
+        Thread backgroundThread2 = new Thread(UrMoveLoop);
+        backgroundThread2.IsBackground = true;
+        backgroundThread2.Start();
+
         f1 = new Form1();
         f1.Show();
         Application.Run();
     }
 
+    static void UrMoveLoop()
+    {
+        Console.WriteLine("Waiting for 3 seconds...");
+        Thread.Sleep(3000);
+        while (true)
+        {
+            Thread.Sleep(100);
+            redIcon?.Invoke(new Action(() =>
+            {
+                redIcon?.Invalidate();
+                blueIcon?.Invalidate();
+            }));
+
+            if (Program.f1.checkBox2.Checked)
+            {
+                int regionWidth = 32;
+                int regionHeight = 897;
+                int blockHeight = 30;
+                double threshold = 50.0;
+
+                int topOutliers = 0;
+                int bottomOutliers = 0;
+
+                Rectangle captureArea = new Rectangle(899, 109, regionWidth, regionHeight);
+
+                // Capture the screenshot from the screen
+                using (Bitmap screenshot = new Bitmap(regionWidth, regionHeight))
+                {
+                    using (Graphics g = Graphics.FromImage(screenshot))
+                    {
+                        g.CopyFromScreen(captureArea.Location, Point.Empty, captureArea.Size);
+                    }
+
+                    topOutliers = CountOutliers(screenshot, 0, blockHeight, threshold);
+                    bottomOutliers = CountOutliers(screenshot, regionHeight - blockHeight, regionHeight, threshold);
+                }
+
+                Console.WriteLine($"Top outlier count: {topOutliers}");
+                Console.WriteLine($"Bottom outlier count: {bottomOutliers}");
+
+                my_move = (bottomOutliers > topOutliers + 100);
+                Program.f1.textBox3?.Invoke(new Action(() =>
+                {
+                    if (my_move) Program.f1.textBox3.Text = "ur move";
+                    else Program.f1.textBox3.Text = "";
+                }));
+            }
+        }
+    }
+
+    static int CountOutliers(Bitmap bmp, int startY, int endY, double threshold)
+    {
+        int width = bmp.Width;
+        int height = endY - startY;
+
+        long totalR = 0, totalG = 0, totalB = 0;
+        for (int y = startY; y < endY; y++)
+            for (int x = 0; x < width; x++)
+            {
+                Color pixel = bmp.GetPixel(x, y);
+                totalR += pixel.R;
+                totalG += pixel.G;
+                totalB += pixel.B;
+            }
+
+        double avgR = totalR / (double)(width * height);
+        double avgG = totalG / (double)(width * height);
+        double avgB = totalB / (double)(width * height);
+
+        int count = 0;
+        for (int y = startY; y < endY; y++)
+            for (int x = 0; x < width; x++)
+            {
+                Color pixel = bmp.GetPixel(x, y);
+                double dist = Math.Sqrt(
+                    Math.Pow(pixel.R - avgR, 2) +
+                    Math.Pow(pixel.G - avgG, 2) +
+                    Math.Pow(pixel.B - avgB, 2));
+                if (dist > threshold)
+                    count++;
+            }
+
+        return count;
+    }
+
     static void MoveIconsLoop()
     {
         // Wait for 5 seconds before starting the capture
-        Console.WriteLine("Waiting for 5 seconds...");
-        Thread.Sleep(5000);
+        Console.WriteLine("Waiting for 3 seconds...");
+        Thread.Sleep(3000);
 
         while (true)
         {
-            if (ans.Length == 4)
+            if (Program.f1.checkBox2.Checked)
             {
-                Thread.Sleep(1000);
-                // Console.WriteLine("sleep 1000");
+                // my move detection mode
+                if (!Program.my_move)
+                {
+                    Thread.Sleep(100);
+                    continue;
+                }
+
+                Thread.Sleep(100);
             }
             else
             {
-                Thread.Sleep(100);
-                // Console.WriteLine("sleep 100");
+                // default mode, sleep for 1 second if engine gives a result, sleep 0.1 second if not
+                if (ans.Length == 4)
+                {
+                    Thread.Sleep(1000);
+                    // Console.WriteLine("sleep 1000");
+                }
+                else
+                {
+                    Thread.Sleep(100);
+                    // Console.WriteLine("sleep 100");
+                }
+
+                // slow down this is a bot play
+                if (Program.f1.checkBox4.Checked)
+                    Thread.Sleep(4000);
             }
+
             string result = capture_and_advise();
 
             if (result.Length >= 4 && result[0]>='a' && result[0] <= 'h' && result[2] >= 'a' && result[2] <= 'h' && result[1] >= '1' && result[1] <= '8' && result[3] >= '1' && result[3] <= '8')
@@ -79,6 +198,27 @@ static class Program
                     {
                         blueIcon.Location = new Point((result[2] - 'a') * chess_board_height_w / 8 + starting_position_x + 5, ((result[3] - '1')) * chess_board_height_w / 8 + starting_position_y + 5);
                     }));
+
+                    redIcon?.Invoke(new Action(() =>
+                    {
+                        redIcon.Visible = true;
+                    }));
+
+                    if (f1.checkBox3.Checked && my_move || f1.checkBox4.Checked)
+                    {
+                        // auto move
+                        redIcon?.Invoke(new Action(() =>
+                        {
+                            var redLocation = new Point((result[0] - 'a') * chess_board_height_w / 8 + starting_position_x + 15, ((result[1] - '1')) * chess_board_height_w / 8 + starting_position_y + 15);
+                            var blueLocation = new Point((result[2] - 'a') * chess_board_height_w / 8 + starting_position_x + 15, ((result[3] - '1')) * chess_board_height_w / 8 + starting_position_y + 15);
+
+                            ClickAt(redLocation);
+                            Thread.Sleep(50); // optional delay
+
+                            // Click blue icon
+                            ClickAt(blueLocation);
+                        }));
+                    }
                 }
                 else
                 {
@@ -91,13 +231,36 @@ static class Program
                     {
                         blueIcon.Location = new Point((result[2] - 'a') * 101 + starting_position_x + 5, (7 - (result[3] - '1')) * chess_board_height_w / 8 + starting_position_y + 5);
                     }));
+
+                    if (f1.checkBox3.Checked && my_move || f1.checkBox4.Checked)
+                    {
+                        // auto move
+                        redIcon?.Invoke(new Action(() =>
+                        {
+                            var redLocation = new Point((result[0] - 'a') * chess_board_height_w / 8 + starting_position_x + 15, (7 - (result[1] - '1')) * chess_board_height_w / 8 + starting_position_y + 15);
+                            var blueLocation = new Point((result[2] - 'a') * 101 + starting_position_x + 15, (7 - (result[3] - '1')) * chess_board_height_w / 8 + starting_position_y + 15);
+
+                            ClickAt(redLocation);
+                            Thread.Sleep(50); // optional delay
+
+                            // Click blue icon
+                            ClickAt(blueLocation);
+
+                            // for pawn promotion
+                            if (ans.Length > 4)
+                            {
+                                Thread.Sleep(50);
+                                ClickAt(blueLocation);
+                            }
+                        }));
+                    }
                 }
             }
         }
        }
 
     static string lastresult = "";
-    static string ans = "";
+    public static string ans = "";
 
     static int? ExtractCentipawnScore(string info)
     {
@@ -107,6 +270,13 @@ static class Program
             return cp;
         }
         return null;
+    }
+
+    static void ClickAt(Point location)
+    {
+        Cursor.Position = location;
+        Thread.Sleep(30); // brief delay to allow positioning
+        mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, UIntPtr.Zero);
     }
 
     static int? ExtractCentipawnScore2(string info)

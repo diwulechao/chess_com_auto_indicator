@@ -34,3 +34,4 @@ C:\repos\chess_com_auto_indicator\chessindicator\obj\Debug\net8.0-windows\refint
 C:\repos\chess_com_auto_indicator\chessindicator\obj\Debug\net8.0-windows\chessindicator.pdb
 C:\repos\chess_com_auto_indicator\chessindicator\obj\Debug\net8.0-windows\chessindicator.genruntimeconfig.cache
 C:\repos\chess_com_auto_indicator\chessindicator\obj\Debug\net8.0-windows\ref\chessindicator.dll
+C:\repos\chess_com_auto_indicator\chessindicator\obj\Debug\net8.0-windows\BlueIconForm.resources
