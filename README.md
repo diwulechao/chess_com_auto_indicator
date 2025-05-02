@@ -13,6 +13,7 @@
 - Adjustable calculation depth/speed.
 - Option to reduce strength and increase detection resistance (3, 4, or 5-move mode).
 - Chess evaluation bar support!
+- Auto play vs player and auto play vs bot. This is basically yelling I'm cheating at chess.com so be ready to get banned and enjoy the show!
 
 ---
 
