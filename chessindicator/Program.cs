@@ -17,6 +17,7 @@ static class Program
 
     public static RedIconForm redIcon;
     public static BlueIconForm blueIcon;
+    public static bool overlay_enabled = true;
 
     // Path to the Stockfish executable
     public static string stockfishPath = @"C:\stockfish\stockfish-windows-x86-64-avx2.exe";
@@ -53,9 +54,72 @@ static class Program
         backgroundThread2.IsBackground = true;
         backgroundThread2.Start();
 
+        Thread backgroundThread3 = new Thread(newgameloop);
+        backgroundThread3.IsBackground = true;
+        backgroundThread3.Start();
+
         f1 = new Form1();
         f1.Show();
         Application.Run();
+    }
+
+    static void newgameloop()
+    {
+        Console.WriteLine("Waiting for 3 seconds...");
+        Thread.Sleep(3000);
+        while (true)
+        {
+            Thread.Sleep(10000);
+
+            if (Program.f1.checkBox5.Checked)
+            {
+                Rectangle captureArea = new Rectangle(489, 376, 266, 500);
+
+                // Capture the screenshot from the screen
+                using (Bitmap screenshot = new Bitmap(266, 500))
+                {
+                    using (Graphics g = Graphics.FromImage(screenshot))
+                    {
+                        g.CopyFromScreen(captureArea.Location, Point.Empty, captureArea.Size);
+                    }
+
+                    for (int y = 0; y < screenshot.Height; y++)
+                    {
+                        int greenPixelCount = 0;
+                        for (int x = 0; x < screenshot.Width; x++)
+                        {
+                            Color pixel = screenshot.GetPixel(x, y);
+
+                            bool isMatch = pixel.G >= 180 && pixel.R < 160 && pixel.B < 100;
+
+
+                            if (isMatch)
+                                greenPixelCount++;
+                        }
+
+                        // If more than half of the row is green
+                        if (greenPixelCount > screenshot.Width / 4 * 3)
+                        {
+                            Console.WriteLine($"Line {y} is mostly green. ({greenPixelCount} matching pixels)");
+                            redIcon?.Invoke(new Action(() =>
+                            {
+                                var redLocation = new Point(554, y + 92 + 376);
+
+                                ClickAt(redLocation);
+                            }));
+                            break;
+                        }
+                    }
+                }
+
+                Program.f1.textBox3?.Invoke(new Action(() =>
+                {
+                    if (my_move) Program.f1.textBox3.Text = "ur move";
+                    else Program.f1.textBox3.Text = "";
+                }));
+            }
+
+        }
     }
 
     static void UrMoveLoop()
@@ -189,20 +253,23 @@ static class Program
                 
                 if (Program.chess_color == 'b')
                 {
-                    redIcon?.Invoke(new Action(() =>
+                    if (overlay_enabled)
                     {
-                        redIcon.Location = new Point((result[0] - 'a') * chess_board_height_w / 8 + starting_position_x + 5, ((result[1] - '1')) * chess_board_height_w / 8 + starting_position_y + 5);
-                    }));
+                        redIcon?.Invoke(new Action(() =>
+                        {
+                            redIcon.Location = new Point((result[0] - 'a') * chess_board_height_w / 8 + starting_position_x + 5, ((result[1] - '1')) * chess_board_height_w / 8 + starting_position_y + 5);
+                        }));
 
-                    blueIcon?.Invoke(new Action(() =>
-                    {
-                        blueIcon.Location = new Point((result[2] - 'a') * chess_board_height_w / 8 + starting_position_x + 5, ((result[3] - '1')) * chess_board_height_w / 8 + starting_position_y + 5);
-                    }));
+                        blueIcon?.Invoke(new Action(() =>
+                        {
+                            blueIcon.Location = new Point((result[2] - 'a') * chess_board_height_w / 8 + starting_position_x + 5, ((result[3] - '1')) * chess_board_height_w / 8 + starting_position_y + 5);
+                        }));
 
-                    redIcon?.Invoke(new Action(() =>
-                    {
-                        redIcon.Visible = true;
-                    }));
+                        redIcon?.Invoke(new Action(() =>
+                        {
+                            redIcon.Visible = true;
+                        }));
+                    }
 
                     if (f1.checkBox3.Checked && my_move || f1.checkBox4.Checked)
                     {
@@ -217,20 +284,38 @@ static class Program
 
                             // Click blue icon
                             ClickAt(blueLocation);
+
+                            // for pawn promotion
+                            if (ans.Length > 4)
+                            {
+                                Thread.Sleep(50);
+                                ClickAt(blueLocation);
+                            }
                         }));
+
+                        if (ans.Length > 4)
+                            Thread.Sleep(100);
                     }
                 }
                 else
                 {
-                    redIcon?.Invoke(new Action(() =>
+                    if (overlay_enabled)
                     {
-                        redIcon.Location = new Point((result[0] - 'a') * chess_board_height_w / 8 + starting_position_x + 5, (7 - (result[1] - '1')) * chess_board_height_w / 8 + starting_position_y + 5);
-                    }));
+                        redIcon?.Invoke(new Action(() =>
+                        {
+                            redIcon.Location = new Point((result[0] - 'a') * chess_board_height_w / 8 + starting_position_x + 5, (7 - (result[1] - '1')) * chess_board_height_w / 8 + starting_position_y + 5);
+                        }));
 
-                    blueIcon?.Invoke(new Action(() =>
-                    {
-                        blueIcon.Location = new Point((result[2] - 'a') * 101 + starting_position_x + 5, (7 - (result[3] - '1')) * chess_board_height_w / 8 + starting_position_y + 5);
-                    }));
+                        blueIcon?.Invoke(new Action(() =>
+                        {
+                            blueIcon.Location = new Point((result[2] - 'a') * 101 + starting_position_x + 5, (7 - (result[3] - '1')) * chess_board_height_w / 8 + starting_position_y + 5);
+                        }));
+
+                        redIcon?.Invoke(new Action(() =>
+                        {
+                            redIcon.Visible = true;
+                        }));
+                    }
 
                     if (f1.checkBox3.Checked && my_move || f1.checkBox4.Checked)
                     {
@@ -253,6 +338,9 @@ static class Program
                                 ClickAt(blueLocation);
                             }
                         }));
+
+                        if (ans.Length > 4)
+                            Thread.Sleep(100);
                     }
                 }
             }
@@ -310,10 +398,12 @@ static class Program
         stockfishProcess.StandardInput.WriteLine("uci"); // Initialize UCI protocol
         stockfishProcess.StandardInput.WriteLine("isready"); // Check if Stockfish is ready
         stockfishProcess.StandardInput.WriteLine($"position fen {fen}"); // Set the position
-        if (chess_speed.Length > 2)
-            stockfishProcess.StandardInput.WriteLine("go movetime " + chess_speed); // Calculate the best move in 1 second
+        int speed = 100;
+        int.TryParse(chess_speed, out speed);
+        if (speed >= 100)
+            stockfishProcess.StandardInput.WriteLine("go movetime " + speed); // Calculate the best move in 1 second
         else
-            stockfishProcess.StandardInput.WriteLine("go depth " + chess_speed);
+            stockfishProcess.StandardInput.WriteLine("go depth " + speed);
         // Read the best move from Stockfish
         string bestMove = "";
         while (!stockfishProcess.StandardOutput.EndOfStream)
@@ -465,6 +555,41 @@ static class Program
                 }
 
                 if (row < width / gridSize - 1) result += '/';
+            }
+        }
+
+        int piececount = 0;
+        for (int i = 0; i < result.Length; i++) if (result[i] >= 'A' && result[i] <= 'Z' || result[i] >= 'a' && result[i] <= 'z') piececount++;
+        if (Program.f1.checkBox6.Checked && piececount >= 30)
+        {
+            // this looks like start of the game. lets guess black or white.
+            string[] rows = result.Split('/');
+            string tp = rows[rows.Length - 1];
+            int bcount = 0;
+            int wcount = 0;
+            foreach (char c in tp)
+            {
+                if (c >= 'A' && c <= 'Z') wcount++;
+                if (c >= 'a' && c <= 'z') bcount++;
+            }
+
+            if (wcount > bcount)
+            {
+                Program.chess_color = 'w';
+                f1.radioButton1?.Invoke(new Action(() =>
+                {
+                    f1.radioButton1.Checked = true;
+                    f1.radioButton2.Checked = false;
+                }));
+            }
+            else
+            {
+                Program.chess_color = 'b';
+                f1.radioButton1?.Invoke(new Action(() =>
+                {
+                    f1.radioButton2.Checked = true;
+                    f1.radioButton1.Checked = false;
+                }));
             }
         }
 

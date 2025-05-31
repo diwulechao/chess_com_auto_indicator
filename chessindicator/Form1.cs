@@ -164,7 +164,7 @@ namespace chessindicator
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            Program.redIcon.Visible = Program.blueIcon.Visible = checkBox1.Checked;
+            Program.overlay_enabled = Program.redIcon.Visible = Program.blueIcon.Visible = checkBox1.Checked;
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
@@ -183,6 +183,23 @@ namespace chessindicator
                 checkBox3.Checked = false;
                 Program.ans = "";
             }
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            int speed = 100;
+            if (int.TryParse(textBox4.Text, out speed))
+                Program.chess_speed = speed.ToString();
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
