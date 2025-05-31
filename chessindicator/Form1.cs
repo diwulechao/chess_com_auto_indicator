@@ -171,7 +171,7 @@ namespace chessindicator
         {
             if (checkBox3.Checked)
             {
-                checkBox2.Checked = true;
+                checkBox5.Checked = checkBox6.Checked = checkBox2.Checked = true;
                 checkBox4.Checked = false;
             }
         }
