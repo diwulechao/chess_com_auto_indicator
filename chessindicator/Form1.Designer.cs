@@ -33,19 +33,18 @@
             radioButton1 = new RadioButton();
             panel2 = new Panel();
             label3 = new Label();
-            textBox4 = new TextBox();
             radioButton12 = new RadioButton();
-            radioButton11 = new RadioButton();
-            radioButton10 = new RadioButton();
-            label2 = new Label();
-            label1 = new Label();
-            radioButton9 = new RadioButton();
-            radioButton8 = new RadioButton();
-            radioButton7 = new RadioButton();
+            textBox4 = new TextBox();
             radioButton6 = new RadioButton();
             radioButton5 = new RadioButton();
             radioButton4 = new RadioButton();
+            radioButton11 = new RadioButton();
             radioButton3 = new RadioButton();
+            radioButton10 = new RadioButton();
+            radioButton9 = new RadioButton();
+            radioButton7 = new RadioButton();
+            label2 = new Label();
+            radioButton8 = new RadioButton();
             textBox1 = new TextBox();
             panel3 = new Panel();
             textBox2 = new TextBox();
@@ -97,19 +96,18 @@
             // panel2
             // 
             panel2.Controls.Add(label3);
-            panel2.Controls.Add(textBox4);
             panel2.Controls.Add(radioButton12);
-            panel2.Controls.Add(radioButton11);
-            panel2.Controls.Add(radioButton10);
-            panel2.Controls.Add(label2);
-            panel2.Controls.Add(label1);
-            panel2.Controls.Add(radioButton9);
-            panel2.Controls.Add(radioButton8);
-            panel2.Controls.Add(radioButton7);
+            panel2.Controls.Add(textBox4);
             panel2.Controls.Add(radioButton6);
             panel2.Controls.Add(radioButton5);
             panel2.Controls.Add(radioButton4);
+            panel2.Controls.Add(radioButton11);
             panel2.Controls.Add(radioButton3);
+            panel2.Controls.Add(radioButton10);
+            panel2.Controls.Add(radioButton9);
+            panel2.Controls.Add(radioButton7);
+            panel2.Controls.Add(label2);
+            panel2.Controls.Add(radioButton8);
             panel2.Location = new Point(31, 44);
             panel2.Name = "panel2";
             panel2.Size = new Size(168, 194);
@@ -118,149 +116,139 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(120, 138);
+            label3.Location = new Point(45, 139);
             label3.Name = "label3";
-            label3.Size = new Size(42, 15);
+            label3.Size = new Size(38, 15);
             label3.TabIndex = 13;
-            label3.Text = "moves";
+            label3.Text = "depth";
+            // 
+            // radioButton12
+            // 
+            radioButton12.AutoSize = true;
+            radioButton12.Location = new Point(99, 109);
+            radioButton12.Name = "radioButton12";
+            radioButton12.Size = new Size(56, 19);
+            radioButton12.TabIndex = 11;
+            radioButton12.Text = "5 secs";
+            radioButton12.UseVisualStyleBackColor = true;
+            radioButton12.CheckedChanged += radioButton12_CheckedChanged;
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(87, 134);
+            textBox4.Location = new Point(12, 135);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(28, 23);
             textBox4.TabIndex = 12;
             textBox4.TextChanged += textBox4_TextChanged;
             // 
-            // radioButton12
-            // 
-            radioButton12.AutoSize = true;
-            radioButton12.Location = new Point(25, 109);
-            radioButton12.Name = "radioButton12";
-            radioButton12.Size = new Size(49, 19);
-            radioButton12.TabIndex = 11;
-            radioButton12.Text = "5000";
-            radioButton12.UseVisualStyleBackColor = true;
-            radioButton12.CheckedChanged += radioButton12_CheckedChanged;
-            // 
-            // radioButton11
-            // 
-            radioButton11.AutoSize = true;
-            radioButton11.Location = new Point(87, 109);
-            radioButton11.Name = "radioButton11";
-            radioButton11.Size = new Size(69, 19);
-            radioButton11.TabIndex = 10;
-            radioButton11.Text = "6 moves";
-            radioButton11.UseVisualStyleBackColor = true;
-            radioButton11.CheckedChanged += radioButton11_CheckedChanged;
-            // 
-            // radioButton10
-            // 
-            radioButton10.AutoSize = true;
-            radioButton10.Location = new Point(87, 84);
-            radioButton10.Name = "radioButton10";
-            radioButton10.Size = new Size(69, 19);
-            radioButton10.TabIndex = 9;
-            radioButton10.Text = "5 moves";
-            radioButton10.UseVisualStyleBackColor = true;
-            radioButton10.CheckedChanged += radioButton10_CheckedChanged;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(87, 165);
-            label2.Name = "label2";
-            label2.Size = new Size(74, 15);
-            label2.TabIndex = 8;
-            label2.Text = "stupid mode";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(10, 165);
-            label1.Name = "label1";
-            label1.Size = new Size(71, 15);
-            label1.TabIndex = 7;
-            label1.Text = "smart mode";
-            // 
-            // radioButton9
-            // 
-            radioButton9.AutoSize = true;
-            radioButton9.Location = new Point(87, 9);
-            radioButton9.Name = "radioButton9";
-            radioButton9.Size = new Size(69, 19);
-            radioButton9.TabIndex = 6;
-            radioButton9.Text = "2 moves";
-            radioButton9.UseVisualStyleBackColor = true;
-            radioButton9.CheckedChanged += radioButton9_CheckedChanged;
-            // 
-            // radioButton8
-            // 
-            radioButton8.AutoSize = true;
-            radioButton8.Location = new Point(87, 34);
-            radioButton8.Name = "radioButton8";
-            radioButton8.Size = new Size(69, 19);
-            radioButton8.TabIndex = 5;
-            radioButton8.Text = "3 moves";
-            radioButton8.UseVisualStyleBackColor = true;
-            radioButton8.CheckedChanged += radioButton8_CheckedChanged;
-            // 
-            // radioButton7
-            // 
-            radioButton7.AutoSize = true;
-            radioButton7.Location = new Point(87, 59);
-            radioButton7.Name = "radioButton7";
-            radioButton7.Size = new Size(69, 19);
-            radioButton7.TabIndex = 4;
-            radioButton7.Text = "4 moves";
-            radioButton7.UseVisualStyleBackColor = true;
-            radioButton7.CheckedChanged += radioButton7_CheckedChanged;
-            // 
             // radioButton6
             // 
             radioButton6.AutoSize = true;
-            radioButton6.Checked = true;
-            radioButton6.Location = new Point(25, 9);
+            radioButton6.Location = new Point(99, 9);
             radioButton6.Name = "radioButton6";
-            radioButton6.Size = new Size(43, 19);
+            radioButton6.Size = new Size(59, 19);
             radioButton6.TabIndex = 3;
-            radioButton6.TabStop = true;
-            radioButton6.Text = "100";
+            radioButton6.Text = "100ms";
             radioButton6.UseVisualStyleBackColor = true;
             radioButton6.CheckedChanged += radioButton6_CheckedChanged;
             // 
             // radioButton5
             // 
             radioButton5.AutoSize = true;
-            radioButton5.Location = new Point(25, 84);
+            radioButton5.Location = new Point(99, 84);
             radioButton5.Name = "radioButton5";
-            radioButton5.Size = new Size(49, 19);
+            radioButton5.Size = new Size(56, 19);
             radioButton5.TabIndex = 2;
-            radioButton5.Text = "2000";
+            radioButton5.Text = "2 secs";
             radioButton5.UseVisualStyleBackColor = true;
             radioButton5.CheckedChanged += radioButton5_CheckedChanged;
             // 
             // radioButton4
             // 
             radioButton4.AutoSize = true;
-            radioButton4.Location = new Point(25, 59);
+            radioButton4.Location = new Point(99, 59);
             radioButton4.Name = "radioButton4";
-            radioButton4.Size = new Size(49, 19);
+            radioButton4.Size = new Size(51, 19);
             radioButton4.TabIndex = 1;
-            radioButton4.Text = "1000";
+            radioButton4.Text = "1 sec";
             radioButton4.UseVisualStyleBackColor = true;
             radioButton4.CheckedChanged += radioButton4_CheckedChanged;
+            // 
+            // radioButton11
+            // 
+            radioButton11.AutoSize = true;
+            radioButton11.Location = new Point(12, 110);
+            radioButton11.Name = "radioButton11";
+            radioButton11.Size = new Size(65, 19);
+            radioButton11.TabIndex = 10;
+            radioButton11.Text = "6 depth";
+            radioButton11.UseVisualStyleBackColor = true;
+            radioButton11.CheckedChanged += radioButton11_CheckedChanged;
             // 
             // radioButton3
             // 
             radioButton3.AutoSize = true;
-            radioButton3.Location = new Point(25, 34);
+            radioButton3.Location = new Point(99, 34);
             radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(43, 19);
+            radioButton3.Size = new Size(59, 19);
             radioButton3.TabIndex = 0;
-            radioButton3.Text = "500";
+            radioButton3.Text = "500ms";
             radioButton3.UseVisualStyleBackColor = true;
             radioButton3.CheckedChanged += radioButton3_CheckedChanged;
+            // 
+            // radioButton10
+            // 
+            radioButton10.AutoSize = true;
+            radioButton10.Location = new Point(12, 85);
+            radioButton10.Name = "radioButton10";
+            radioButton10.Size = new Size(65, 19);
+            radioButton10.TabIndex = 9;
+            radioButton10.Text = "5 depth";
+            radioButton10.UseVisualStyleBackColor = true;
+            radioButton10.CheckedChanged += radioButton10_CheckedChanged;
+            // 
+            // radioButton9
+            // 
+            radioButton9.AutoSize = true;
+            radioButton9.Location = new Point(12, 10);
+            radioButton9.Name = "radioButton9";
+            radioButton9.Size = new Size(65, 19);
+            radioButton9.TabIndex = 6;
+            radioButton9.Text = "2 depth";
+            radioButton9.UseVisualStyleBackColor = true;
+            radioButton9.CheckedChanged += radioButton9_CheckedChanged;
+            // 
+            // radioButton7
+            // 
+            radioButton7.AutoSize = true;
+            radioButton7.Checked = true;
+            radioButton7.Location = new Point(12, 60);
+            radioButton7.Name = "radioButton7";
+            radioButton7.Size = new Size(65, 19);
+            radioButton7.TabIndex = 4;
+            radioButton7.TabStop = true;
+            radioButton7.Text = "4 depth";
+            radioButton7.UseVisualStyleBackColor = true;
+            radioButton7.CheckedChanged += radioButton7_CheckedChanged;
+            // 
+            // label2
+            // 
+            label2.Location = new Point(3, 161);
+            label2.Name = "label2";
+            label2.Size = new Size(169, 33);
+            label2.TabIndex = 8;
+            label2.Text = "limit depth to avoid get caught";
+            // 
+            // radioButton8
+            // 
+            radioButton8.AutoSize = true;
+            radioButton8.Location = new Point(12, 35);
+            radioButton8.Name = "radioButton8";
+            radioButton8.Size = new Size(65, 19);
+            radioButton8.TabIndex = 5;
+            radioButton8.Text = "3 depth";
+            radioButton8.UseVisualStyleBackColor = true;
+            radioButton8.CheckedChanged += radioButton8_CheckedChanged;
             // 
             // textBox1
             // 
@@ -418,7 +406,6 @@
         public TextBox textBox2;
         private Panel panel4;
         private Label label2;
-        private Label label1;
         private RadioButton radioButton12;
         private RadioButton radioButton11;
         private RadioButton radioButton10;
