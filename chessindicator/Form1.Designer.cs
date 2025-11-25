@@ -56,6 +56,7 @@
             checkBox4 = new CheckBox();
             checkBox5 = new CheckBox();
             checkBox6 = new CheckBox();
+            btnRecalculate = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
@@ -359,11 +360,22 @@
             checkBox6.UseVisualStyleBackColor = true;
             checkBox6.CheckedChanged += checkBox6_CheckedChanged;
             // 
+            // btnRecalculate
+            // 
+            btnRecalculate.Location = new Point(31, 151);
+            btnRecalculate.Name = "btnRecalculate";
+            btnRecalculate.Size = new Size(100, 30);
+            btnRecalculate.TabIndex = 13;
+            btnRecalculate.Text = "Recalculate";
+            btnRecalculate.UseVisualStyleBackColor = true;
+            btnRecalculate.Click += btnRecalculate_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(333, 770);
+            ClientSize = new Size(333, 800);
+            Controls.Add(btnRecalculate);
             Controls.Add(checkBox6);
             Controls.Add(checkBox5);
             Controls.Add(checkBox4);
@@ -418,5 +430,6 @@
         private TextBox textBox4;
         public CheckBox checkBox5;
         public CheckBox checkBox6;
+        private Button btnRecalculate;
     }
 }

@@ -108,7 +108,7 @@ namespace chessindicator
                 return;
             }
 
-            textBox1.AppendText(message + Environment.NewLine);
+            textBox1.AppendText(message);
             textBox1.SelectionStart = textBox1.Text.Length;
             textBox1.ScrollToCaret();
         }
@@ -205,6 +205,14 @@ namespace chessindicator
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnRecalculate_Click(object sender, EventArgs e)
+        {
+            // Force immediate recalculation by resetting the last result
+            Program.lastresult = "";
+            Program.ans = "";
+            AppendToConsole("Manual recalculation triggered...");
         }
     }
 }

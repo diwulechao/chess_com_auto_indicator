@@ -347,7 +347,7 @@ static class Program
         }
        }
 
-    static string lastresult = "";
+    public static string lastresult = "";
     public static string ans = "";
 
     static int? ExtractCentipawnScore(string info)
