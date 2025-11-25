@@ -499,6 +499,17 @@ static class Program
 
                     using (Bitmap gridSection = screenshot.Clone(new Rectangle(x, y, gridWidth, gridHeight), screenshot.PixelFormat))
                     {
+
+                        // Need drawing a rectangle around the grid section for debugging
+                        using (Graphics g2 = Graphics.FromImage(gridSection))
+                        {
+                            using (Pen pen = new Pen(Color.Red, 10))
+                            {
+                                g2.DrawRectangle(pen, 0, 0, gridWidth - 1, gridHeight - 1);
+                                gridSection.Save($@"D:\temp\chess\debug_grid_{row}_{col}.png", System.Drawing.Imaging.ImageFormat.Png);
+                            }
+                        }
+
                         // Count the number of pixels that have RGB values in the range [240, 260]
                         int count = 0;
                         int count2 = 0;
@@ -534,7 +545,7 @@ static class Program
                         else if (count == 2280) result += 'N';
                         else if (count == 1899) result += 'B';
                         else if (count == 2459) result += 'Q';
-                        else if (count == 2811) result += 'K';
+                        else if (count == 2812) result += 'K';
                         else if (count2 == 1127) result += 'p';
                         else if (count2 == 1725) result += 'r';
                         else if (count2 == 1943) result += 'n';
