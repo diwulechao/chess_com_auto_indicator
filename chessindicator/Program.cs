@@ -192,15 +192,17 @@ static class Program
         double avgB = totalB / (double)(width * height);
 
         int count = 0;
+        double thresholdSquared = threshold * threshold; // Avoid sqrt by comparing squared distances
         for (int y = startY; y < endY; y++)
             for (int x = 0; x < width; x++)
             {
                 Color pixel = bmp.GetPixel(x, y);
-                double dist = Math.Sqrt(
-                    Math.Pow(pixel.R - avgR, 2) +
-                    Math.Pow(pixel.G - avgG, 2) +
-                    Math.Pow(pixel.B - avgB, 2));
-                if (dist > threshold)
+                // Use squared distance to avoid expensive Math.Sqrt
+                double distSquared = 
+                    (pixel.R - avgR) * (pixel.R - avgR) +
+                    (pixel.G - avgG) * (pixel.G - avgG) +
+                    (pixel.B - avgB) * (pixel.B - avgB);
+                if (distSquared > thresholdSquared)
                     count++;
             }
 
@@ -349,10 +351,18 @@ static class Program
 
     public static string lastresult = "";
     public static string ans = "";
+    
+    // Performance optimization: Pre-compile regex patterns
+    private static readonly Regex cpScoreRegex = new Regex(@"score cp (-?\d+)", RegexOptions.Compiled);
+    private static readonly Regex mateScoreRegex = new Regex(@"score mate (-?\d+)", RegexOptions.Compiled);
+    
+    // Performance optimization: Reuse Stockfish process
+    private static Process? stockfishProcess = null;
+    private static readonly object stockfishLock = new object();
 
     static int? ExtractCentipawnScore(string info)
     {
-        var match = Regex.Match(info, @"score cp (-?\d+)");
+        var match = cpScoreRegex.Match(info);
         if (match.Success && int.TryParse(match.Groups[1].Value, out int cp))
         {
             return cp;
@@ -369,7 +379,7 @@ static class Program
 
     static int? ExtractCentipawnScore2(string info)
     {
-        var match = Regex.Match(info, @"score mate (-?\d+)");
+        var match = mateScoreRegex.Match(info);
         if (match.Success && int.TryParse(match.Groups[1].Value, out int cp))
         {
             return cp;
@@ -384,20 +394,33 @@ static class Program
 
     static string GetBestMove(string fen)
     {
-        // Create a process to run Stockfish
-        Process stockfishProcess = new Process();
-        stockfishProcess.StartInfo.FileName = stockfishPath;
-        stockfishProcess.StartInfo.RedirectStandardInput = true;
-        stockfishProcess.StartInfo.RedirectStandardOutput = true;
-        stockfishProcess.StartInfo.UseShellExecute = false;
-        stockfishProcess.StartInfo.CreateNoWindow = true;
+        lock (stockfishLock)
+        {
+            // Performance optimization: Reuse Stockfish process if possible
+            if (stockfishProcess == null || stockfishProcess.HasExited)
+            {
+                // Create a new process to run Stockfish
+                stockfishProcess = new Process();
+                stockfishProcess.StartInfo.FileName = stockfishPath;
+                stockfishProcess.StartInfo.RedirectStandardInput = true;
+                stockfishProcess.StartInfo.RedirectStandardOutput = true;
+                stockfishProcess.StartInfo.UseShellExecute = false;
+                stockfishProcess.StartInfo.CreateNoWindow = true;
 
-        stockfishProcess.Start();
+                stockfishProcess.Start();
+                
+                // Initialize UCI once for reused process
+                stockfishProcess.StandardInput.WriteLine("uci");
+                stockfishProcess.StandardInput.WriteLine("isready");
+                // Wait for ready confirmation
+                string? readyLine;
+                do {
+                    readyLine = stockfishProcess.StandardOutput.ReadLine();
+                } while (readyLine != null && !readyLine.Contains("readyok"));
+            }
 
-        // Send the FEN to Stockfish
-        stockfishProcess.StandardInput.WriteLine("uci"); // Initialize UCI protocol
-        stockfishProcess.StandardInput.WriteLine("isready"); // Check if Stockfish is ready
-        stockfishProcess.StandardInput.WriteLine($"position fen {fen}"); // Set the position
+            // Send the FEN to Stockfish (skip UCI init for reused process)
+            stockfishProcess.StandardInput.WriteLine($"position fen {fen}"); // Set the position
         int speed = 100;
         int.TryParse(chess_speed, out speed);
         if (speed >= 100)
@@ -406,12 +429,14 @@ static class Program
             stockfishProcess.StandardInput.WriteLine("go depth " + speed);
         // Read the best move from Stockfish
         string bestMove = "";
-        while (!stockfishProcess.StandardOutput.EndOfStream)
-        {
-            string line = stockfishProcess.StandardOutput.ReadLine();
-            f1.AppendToConsole(line + "\n");
+            while (!stockfishProcess.StandardOutput.EndOfStream)
+            {
+                string? line = stockfishProcess.StandardOutput.ReadLine();
+                if (line == null) continue;
+                
+                f1.AppendToConsole(line + "\n");
 
-            if (line.IndexOf("score cp") >= 0)
+                if (line.IndexOf("score cp") >= 0)
             {
                 int? cp = ExtractCentipawnScore(line);
                 if (cp.HasValue)
@@ -449,11 +474,11 @@ static class Program
                 bestMove = line.Split(' ')[1]; // Extract the move from the line
                 break;
             }
-        }
+            }
 
-        stockfishProcess.Kill(); // Terminate Stockfish process
-
-        return bestMove;
+            // Don't kill the process - keep it running for reuse
+            return bestMove;
+        } // end lock
     }
 
     static string capture_and_advise()
@@ -500,7 +525,9 @@ static class Program
                     using (Bitmap gridSection = screenshot.Clone(new Rectangle(x, y, gridWidth, gridHeight), screenshot.PixelFormat))
                     {
 
-                        // Need drawing a rectangle around the grid section for debugging
+                        // Debug operations disabled for performance
+                        // Uncomment the lines below only if you need debug images:
+                        /*
                         using (Graphics g2 = Graphics.FromImage(gridSection))
                         {
                             using (Pen pen = new Pen(Color.Red, 10))
@@ -509,6 +536,7 @@ static class Program
                                 gridSection.Save($@"D:\temp\chess\debug_grid_{row}_{col}.png", System.Drawing.Imaging.ImageFormat.Png);
                             }
                         }
+                        */
 
                         // Count the number of pixels that have RGB values in the range [240, 260]
                         int count = 0;
@@ -521,10 +549,8 @@ static class Program
                                 // Get the pixel color
                                 Color pixelColor = gridSection.GetPixel(i, j);
 
-                                // Check if R, G, B values are in the range [240, 260]
-                                if (pixelColor.R >= 240 && pixelColor.R <= 260 &&
-                                    pixelColor.G >= 240 && pixelColor.G <= 260 &&
-                                    pixelColor.B >= 240 && pixelColor.B <= 260)
+                                // Check if R, G, B values are in the high range (240-255, byte max is 255)
+                                if (pixelColor.R >= 240 && pixelColor.G >= 240 && pixelColor.B >= 240)
                                 {
                                     count++;
                                 }
@@ -616,14 +642,14 @@ static class Program
             result = flippedPiecePlacement;
         }
 
-        if (lastresult != result)
+        if (!string.Equals(lastresult, result, StringComparison.Ordinal))
         {
             Console.WriteLine("");
             Console.WriteLine("Finished: result " + result);
 
             lastresult = result;
-            result = lastresult + " " + Program.chess_color;
-            ans = GetBestMove(result);
+            string fenString = lastresult + " " + Program.chess_color;
+            ans = GetBestMove(fenString);
             Console.WriteLine("                   " + Program.chess_color + ":  " + ans);
             Console.WriteLine("");
 
