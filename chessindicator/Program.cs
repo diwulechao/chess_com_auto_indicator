@@ -27,7 +27,7 @@ static class Program
     public static int chess_board_height_w = 808;
 
     public static char chess_color = 'w';
-    public static string chess_speed = "100";
+    public static string chess_speed = "4";
 
     public static Form1 f1;
 
@@ -540,18 +540,18 @@ static class Program
 
                         // Print the count of pixels that meet the condition for the current square
                         // Console.WriteLine($"Square [{row},{col}] - Pixels in range 240-260 (R,G,B): {count} {count2}");
-                        if (count == 1301) result += 'P';
-                        else if (count == 1986) result += 'R';
-                        else if (count == 2280) result += 'N';
-                        else if (count == 1899) result += 'B';
-                        else if (count == 2459) result += 'Q';
-                        else if (count == 2812) result += 'K';
-                        else if (count2 == 1127) result += 'p';
-                        else if (count2 == 1725) result += 'r';
-                        else if (count2 == 1943) result += 'n';
-                        else if (count2 == 1559) result += 'b';
-                        else if (count2 == 2154) result += 'q';
-                        else if (count2 == 2500) result += 'k';
+                        if (count >= 1296 && count <= 1306) result += 'P';
+                        else if (count >= 1981 && count <= 1991) result += 'R';
+                        else if (count >= 2275 && count <= 2285) result += 'N';
+                        else if (count >= 1894 && count <= 1904) result += 'B';
+                        else if (count >= 2454 && count <= 2464) result += 'Q';
+                        else if (count >= 2806 && count <= 2816) result += 'K';
+                        else if (count2 >= 1122 && count2 <= 1132) result += 'p';
+                        else if (count2 >= 1720 && count2 <= 1730) result += 'r';
+                        else if (count2 >= 1938 && count2 <= 1948) result += 'n';
+                        else if (count2 >= 1554 && count2 <= 1564) result += 'b';
+                        else if (count2 >= 2149 && count2 <= 2159) result += 'q';
+                        else if (count2 >= 2495 && count2 <= 2505) result += 'k';
                         else if (count + count2 == 0)
                         {
                             if (result.Length > 0 && result[result.Length - 1] >= '1' && result[result.Length - 1] <= '8')

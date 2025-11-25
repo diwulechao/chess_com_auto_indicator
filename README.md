@@ -82,4 +82,5 @@ The main UI includes two groups of radio buttons:
 
 ## 🔧 Example
 ![latest UI](./latest_ui.png)
+
 ![Screenshot of ChessIndicator in action](./chess_indicator_example.png)
