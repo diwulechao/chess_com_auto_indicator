@@ -22,7 +22,7 @@ static class Program
     // Path to the Stockfish executable
     public static string stockfishPath = @"C:\stockfish\stockfish-windows-x86-64-avx2.exe";
 
-    public static int starting_position_x = 224;
+    public static int starting_position_x = 224 + 12;
     public static int starting_position_y = 152;
     public static int chess_board_height_w = 808;
 
@@ -131,8 +131,16 @@ static class Program
             Thread.Sleep(100);
             redIcon?.Invoke(new Action(() =>
             {
-                redIcon?.Invalidate();
-                blueIcon?.Invalidate();
+                if (redIcon.Visible)
+                {
+                    redIcon.TopMost = true;
+                    redIcon.Invalidate();
+                }
+                if (blueIcon.Visible)
+                {
+                    blueIcon.TopMost = true;
+                    blueIcon.Invalidate();
+                }
             }));
 
             if (Program.f1.checkBox2.Checked)
@@ -269,6 +277,10 @@ static class Program
                         {
                             redIcon.Visible = true;
                         }));
+                        blueIcon?.Invoke(new Action(() =>
+                        {
+                            blueIcon.Visible = true;
+                        }));
                     }
 
                     if (f1.checkBox3.Checked && my_move || f1.checkBox4.Checked)
@@ -314,6 +326,10 @@ static class Program
                         redIcon?.Invoke(new Action(() =>
                         {
                             redIcon.Visible = true;
+                        }));
+                        blueIcon?.Invoke(new Action(() =>
+                        {
+                            blueIcon.Visible = true;
                         }));
                     }
 
@@ -404,54 +420,63 @@ static class Program
             stockfishProcess.StandardInput.WriteLine("go movetime " + speed); // Calculate the best move in 1 second
         else
             stockfishProcess.StandardInput.WriteLine("go depth " + speed);
-        // Read the best move from Stockfish
+        // Read the best move from Stockfish with a 10-second timeout
         string bestMove = "";
-        while (!stockfishProcess.StandardOutput.EndOfStream)
+        var readTask = System.Threading.Tasks.Task.Run(() =>
         {
-            string line = stockfishProcess.StandardOutput.ReadLine();
-            f1.AppendToConsole(line + "\n");
+            while (!stockfishProcess.StandardOutput.EndOfStream)
+            {
+                string line = stockfishProcess.StandardOutput.ReadLine();
+                if (line == null) break;
+                f1.AppendToConsole(line + "\n");
 
-            if (line.IndexOf("score cp") >= 0)
-            {
-                int? cp = ExtractCentipawnScore(line);
-                if (cp.HasValue)
+                if (line.IndexOf("score cp") >= 0)
                 {
-                    f1.evalBarValue = CpToBar(cp.Value);
-                    f1.panel3.Invalidate();
-                    f1.Invoke(new Action(() =>
+                    int? cp = ExtractCentipawnScore(line);
+                    if (cp.HasValue)
                     {
-                        f1.textBox2.Text = cp.Value.ToString();
-                    }));
-                }
-                else
-                {
-                    Console.WriteLine("No cp score found.");
-                }
-            }
-            else if (line.IndexOf("score mate") >= 0)
-            {
-                int? cp = ExtractCentipawnScore2(line);
-                if (cp.HasValue)
-                {
-                    f1.Invoke(new Action(() =>
+                        f1.evalBarValue = CpToBar(cp.Value);
+                        f1.panel3.Invalidate();
+                        f1.Invoke(new Action(() =>
+                        {
+                            f1.textBox2.Text = cp.Value.ToString();
+                        }));
+                    }
+                    else
                     {
-                        f1.textBox2.Text = "mate " + cp.Value.ToString();
-                    }));
+                        Console.WriteLine("No cp score found.");
+                    }
                 }
-                else
+                else if (line.IndexOf("score mate") >= 0)
                 {
-                    Console.WriteLine("No cp score found.");
+                    int? cp = ExtractCentipawnScore2(line);
+                    if (cp.HasValue)
+                    {
+                        f1.Invoke(new Action(() =>
+                        {
+                            f1.textBox2.Text = "mate " + cp.Value.ToString();
+                        }));
+                    }
+                    else
+                    {
+                        Console.WriteLine("No cp score found.");
+                    }
                 }
-            }
 
-            if (line.StartsWith("bestmove"))
-            {
-                bestMove = line.Split(' ')[1]; // Extract the move from the line
-                break;
+                if (line.StartsWith("bestmove"))
+                {
+                    bestMove = line.Split(' ')[1]; // Extract the move from the line
+                    break;
+                }
             }
+        });
+
+        if (!readTask.Wait(TimeSpan.FromSeconds(10)))
+        {
+            Console.WriteLine("Stockfish timed out after 10 seconds.");
         }
 
-        stockfishProcess.Kill(); // Terminate Stockfish process
+        try { stockfishProcess.Kill(); } catch { } // Terminate Stockfish process
 
         return bestMove;
     }
