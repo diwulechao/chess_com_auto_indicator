@@ -12,6 +12,20 @@ static class Program
     [DllImport("user32.dll")]
     static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, UIntPtr dwExtraInfo);
 
+    [DllImport("user32.dll")]
+    static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
+    static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
+    const uint SWP_NOSIZE = 0x0001;
+    const uint SWP_NOMOVE = 0x0002;
+    const uint SWP_NOACTIVATE = 0x0010;
+
+    // Keep a window topmost without stealing focus (unlike the managed Form.TopMost setter).
+    static void KeepTopMostNoActivate(IntPtr hWnd)
+    {
+        SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+    }
+
     const uint MOUSEEVENTF_LEFTDOWN = 0x0002;
     const uint MOUSEEVENTF_LEFTUP = 0x0004;
 
@@ -101,12 +115,8 @@ static class Program
                         if (greenPixelCount > screenshot.Width / 4 * 3)
                         {
                             Console.WriteLine($"Line {y} is mostly green. ({greenPixelCount} matching pixels)");
-                            redIcon?.Invoke(new Action(() =>
-                            {
-                                var redLocation = new Point(554, y + 92 + 376);
-
-                                ClickAt(redLocation);
-                            }));
+                            var redLocation = new Point(554, y + 92 + 376);
+                            ClickAt(redLocation);
                             break;
                         }
                     }
@@ -133,12 +143,12 @@ static class Program
             {
                 if (redIcon.Visible)
                 {
-                    redIcon.TopMost = true;
+                    KeepTopMostNoActivate(redIcon.Handle);
                     redIcon.Invalidate();
                 }
                 if (blueIcon.Visible)
                 {
-                    blueIcon.TopMost = true;
+                    KeepTopMostNoActivate(blueIcon.Handle);
                     blueIcon.Invalidate();
                 }
             }));
@@ -285,28 +295,23 @@ static class Program
 
                     if (f1.checkBox3.Checked && my_move || f1.checkBox4.Checked)
                     {
-                        // auto move
-                        redIcon?.Invoke(new Action(() =>
-                        {
-                            var redLocation = new Point((result[0] - 'a') * chess_board_height_w / 8 + starting_position_x + 10, ((result[1] - '1')) * chess_board_height_w / 8 + starting_position_y + 10);
-                            var blueLocation = new Point((result[2] - 'a') * chess_board_height_w / 8 + starting_position_x + 10, ((result[3] - '1')) * chess_board_height_w / 8 + starting_position_y + 10);
+                        // auto move (run on this background thread so the UI stays responsive)
+                        var redLocation = new Point((result[0] - 'a') * chess_board_height_w / 8 + starting_position_x + 10, ((result[1] - '1')) * chess_board_height_w / 8 + starting_position_y + 10);
+                        var blueLocation = new Point((result[2] - 'a') * chess_board_height_w / 8 + starting_position_x + 10, ((result[3] - '1')) * chess_board_height_w / 8 + starting_position_y + 10);
 
-                            ClickAt(redLocation);
-                            Thread.Sleep(50); // optional delay
+                        ClickAt(redLocation);
+                        Thread.Sleep(50); // optional delay
 
-                            // Click blue icon
-                            ClickAt(blueLocation);
+                        // Click blue icon
+                        ClickAt(blueLocation);
 
-                            // for pawn promotion
-                            if (ans.Length > 4)
-                            {
-                                Thread.Sleep(50);
-                                ClickAt(blueLocation);
-                            }
-                        }));
-
+                        // for pawn promotion
                         if (ans.Length > 4)
+                        {
+                            Thread.Sleep(50);
+                            ClickAt(blueLocation);
                             Thread.Sleep(100);
+                        }
                     }
                 }
                 else
@@ -335,28 +340,23 @@ static class Program
 
                     if (f1.checkBox3.Checked && my_move || f1.checkBox4.Checked)
                     {
-                        // auto move
-                        redIcon?.Invoke(new Action(() =>
-                        {
-                            var redLocation = new Point((result[0] - 'a') * chess_board_height_w / 8 + starting_position_x + 10, (7 - (result[1] - '1')) * chess_board_height_w / 8 + starting_position_y + 10);
-                            var blueLocation = new Point((result[2] - 'a') * 101 + starting_position_x + 10, (7 - (result[3] - '1')) * chess_board_height_w / 8 + starting_position_y + 10);
+                        // auto move (run on this background thread so the UI stays responsive)
+                        var redLocation = new Point((result[0] - 'a') * chess_board_height_w / 8 + starting_position_x + 10, (7 - (result[1] - '1')) * chess_board_height_w / 8 + starting_position_y + 10);
+                        var blueLocation = new Point((result[2] - 'a') * 101 + starting_position_x + 10, (7 - (result[3] - '1')) * chess_board_height_w / 8 + starting_position_y + 10);
 
-                            ClickAt(redLocation);
-                            Thread.Sleep(50); // optional delay
+                        ClickAt(redLocation);
+                        Thread.Sleep(50); // optional delay
 
-                            // Click blue icon
-                            ClickAt(blueLocation);
+                        // Click blue icon
+                        ClickAt(blueLocation);
 
-                            // for pawn promotion
-                            if (ans.Length > 4)
-                            {
-                                Thread.Sleep(50);
-                                ClickAt(blueLocation);
-                            }
-                        }));
-
+                        // for pawn promotion
                         if (ans.Length > 4)
+                        {
+                            Thread.Sleep(50);
+                            ClickAt(blueLocation);
                             Thread.Sleep(100);
+                        }
                     }
                 }
             }
@@ -380,7 +380,9 @@ static class Program
     {
         Cursor.Position = location;
         Thread.Sleep(30); // brief delay to allow positioning
-        mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, UIntPtr.Zero);
+        mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, UIntPtr.Zero);
+        Thread.Sleep(30); // hold so the target registers a real click
+        mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, UIntPtr.Zero);
     }
 
     static int? ExtractCentipawnScore2(string info)
